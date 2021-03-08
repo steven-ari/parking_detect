@@ -19,6 +19,7 @@ ___Accepted at [2016 IEEE Symposium on Computers and Communication (ISCC)](https
 2. Each border was prepared manually by the dataset, 38k patches were utilized as training and test
 3. Utilizing normalization as trainable parameter, but included in image preprocessing
 4. Model Summary: *CNN* with Fully Connected Layers as classificator (4M trainable parameter)
+5. *200px* * *200px* patch size
 
 
 ### Preparation
