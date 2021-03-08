@@ -13,50 +13,7 @@ from tensorflow.keras import layers
 from tensorflow.keras.models import Sequential
 
 
-# calculate image sd and mean, first load images
-img_class_0_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                               'parking_dataset', str(0), '*.jpg')
-img_class_1_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                               'parking_dataset', str(1), '*.jpg')
-
-# mean image zero
-img_path_list = glob.glob(img_class_0_dir)
-shuffle(img_path_list)
-img_path_list = img_path_list[0:7000]
-img_shape = cv2.imread(img_path_list[0]).shape
-img_all = np.zeros(shape=(len(img_path_list), img_shape[0], img_shape[1], img_shape[2]))
-
-for i, img_path in enumerate(img_path_list):
-    image = cv2.imread(img_path)
-    img_all[i] = image
-    print(img_path)
-
-img_mean = np.mean(np.mean(img_all, axis=0), axis=(0, 1))
-img_std = np.mean(np.std(img_all, axis=0), axis=(0, 1))
-
-print('0, mean:' + str(img_mean))
-print('0, mean:' + str(img_std))
-
-# mean image one
-img_path_list = glob.glob(img_class_1_dir)
-shuffle(img_path_list)
-img_path_list = img_path_list[0:7000]
-img_shape = cv2.imread(img_path_list[0]).shape
-img_all = np.zeros(shape=(len(img_path_list), img_shape[0], img_shape[1], img_shape[2]))
-
-for i, img_path in enumerate(img_path_list):
-    image = cv2.imread(img_path)
-    img_all[i] = image
-
-img_mean = np.mean(np.mean(img_all, axis=0), axis=(0, 1))
-img_std = np.mean(np.std(img_all, axis=0), axis=(0, 1))
-
-print('1, mean:' + str(img_mean))
-print('1, mean:' + str(img_std))
-
-a = 1
-
-"""# load images
+# load images
 img_size = (200, 200)
 plain_name = ['parking_dataset_plain', 'CNR-EXT-Patches-150x150', 'PATCHES']
 date_name = '2016-01-12'
@@ -114,6 +71,48 @@ for camera_name in camera_name_list:
                                      gt_class, "_".join([gt_class, patch_block, patch_hour.replace('.', '_'),
                                                          camera_name, date_name,'.jpg']))
             print(save_path)
-            cv2.imwrite(save_path, img_resized)"""
+            cv2.imwrite(save_path, img_resized)
+            
+
+# calculate image sd and mean, first load images
+img_class_0_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                               'parking_dataset', str(0), '*.jpg')
+img_class_1_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                               'parking_dataset', str(1), '*.jpg')
+
+# mean image zero
+img_path_list = glob.glob(img_class_0_dir)
+shuffle(img_path_list)
+img_path_list = img_path_list[0:7000]
+img_shape = cv2.imread(img_path_list[0]).shape
+img_all = np.zeros(shape=(len(img_path_list), img_shape[0], img_shape[1], img_shape[2]))
+
+for i, img_path in enumerate(img_path_list):
+    image = cv2.imread(img_path)
+    img_all[i] = image
+    print(img_path)
+
+img_mean = np.mean(np.mean(img_all, axis=0), axis=(0, 1))
+img_std = np.mean(np.std(img_all, axis=0), axis=(0, 1))
+
+print('0, mean:' + str(img_mean))
+print('0, mean:' + str(img_std))
+
+# mean image one
+img_path_list = glob.glob(img_class_1_dir)
+shuffle(img_path_list)
+img_path_list = img_path_list[0:7000]
+img_shape = cv2.imread(img_path_list[0]).shape
+img_all = np.zeros(shape=(len(img_path_list), img_shape[0], img_shape[1], img_shape[2]))
+
+for i, img_path in enumerate(img_path_list):
+    image = cv2.imread(img_path)
+    img_all[i] = image
+
+img_mean = np.mean(np.mean(img_all, axis=0), axis=(0, 1))
+img_std = np.mean(np.std(img_all, axis=0), axis=(0, 1))
+
+print('1, mean:' + str(img_mean))
+print('1, mean:' + str(img_std))
 
 a = 1

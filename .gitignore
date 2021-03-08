@@ -1,3 +1,5 @@
 **/*.jpg
 **/*.png
 **/*checkpoint*
+*/.idea*
+**/*.tflite

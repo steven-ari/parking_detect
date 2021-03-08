@@ -25,28 +25,21 @@ def prepare(img):
 
 # load model and weight
 img_size = (200, 200)
-num_classes = 2
-model = Sequential([
-    keras.Input(shape=(img_size[0], img_size[1], 3)),
-    layers.BatchNormalization(),
-    layers.Conv2D(16, 3, padding='same', activation='relu'),
-    layers.MaxPooling2D(),
-    layers.Conv2D(32, 7, padding='same'),
-    layers.BatchNormalization(),
-    layers.LeakyReLU(),
-    layers.MaxPooling2D(),
-    layers.Conv2D(32, 3, padding='same', activation='relu'),
-    layers.MaxPooling2D(),
-    layers.Conv2D(32, 3, padding='same', activation='relu'),
-    layers.MaxPooling2D(),
-    layers.Flatten(),
-    layers.BatchNormalization(),
-    layers.Dense(200, activation='relu'),
-    layers.Dropout(rate=0.2),
-    layers.Dense(128, activation='relu'),
-    layers.Dense(1, activation='sigmoid'),
-])
-model.load_weights('my_checkpoint')
+
+# Load the TFLite model and allocate tensors.
+interpreter = tf.lite.Interpreter(model_path="converted_model.tflite")
+interpreter.allocate_tensors()
+
+# Get input and output tensors.
+input_details = interpreter.get_input_details()
+output_details = interpreter.get_output_details()
+
+# Test the model on random input data.
+input_shape = input_details[0]['shape']
+input_data = np.array(np.random.random_sample(input_shape), dtype=np.float32)
+interpreter.set_tensor(input_details[0]['index'], input_data)
+
+interpreter.invoke()
 
 # load a sample image
 # OVERCAST '2015-11-16', camera8;'2015-11-20', camera2;'2015-11-20', 'camera3';'2015-11-20', 'camera5';'2015-11-20', 'camera6'
@@ -76,30 +69,31 @@ for img_path in img_path_list:
         boxes = list(csv.reader(f))
 
     # crop images
-    image_input = np.zeros(shape=(len(boxes[1:]), img_size[0], img_size[1], 3))
-    for i, one_box in enumerate(boxes[1:]):
+    sample_image_list = []
+    for one_box in boxes[1:]:
         one_box_x = int(int(one_box[1])/2.6)
         one_box_y = int(int(one_box[2])/2.6)
         one_box_w = int(int(one_box[3])/2.5)
         one_box_h = int(int(one_box[4])/2.5)
         img_resized = cv2.resize(image[one_box_y:one_box_y+one_box_h, one_box_x:one_box_x+one_box_w], img_size,
                                  interpolation=cv2.INTER_CUBIC)
-        image_input[i] = (prepare(np.expand_dims(img_resized, axis=0)))
 
-    # predict labels
-    output = model.predict(image_input)
-    label = np.array(list(map(lambda x: 1 if x > 0.5 else 0, output)))
+        # predict labels
+        image_input = prepare(np.expand_dims(img_resized, axis=0))
+        output_data = interpreter.get_tensor(output_details[0]['index'])
+        interpreter.set_tensor(input_details[0]['index'], image_input)
 
-    for i, one_box in enumerate(boxes[1:]):
-        one_box_x = int(int(one_box[1])/2.6)
-        one_box_y = int(int(one_box[2])/2.6)
-        one_box_w = int(int(one_box[3])/2.5)
-        one_box_h = int(int(one_box[4])/2.5)
+        interpreter.invoke()
+
+        # The function `get_tensor()` returns a copy of the tensor data.
+        # Use `tensor()` in order to get a pointer to the tensor.
+        output_data = interpreter.get_tensor(output_details[0]['index'])
+        label = np.array(list(map(lambda x: 1 if x > 0.5 else 0, output_data)))
 
         image = cv2.rectangle(image, (one_box_x, one_box_y), (one_box_x + one_box_w, one_box_y + one_box_h),
-                              (36, int(255 * label[i]), 12), 2)
+                              (36, int(255 * label), 12), 2)
         cv2.putText(image, ('ID:' + str(one_box[0])), (one_box_x, one_box_y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6,
-                    (36, int(255 * label[i]), 12), 1)
+                    (36, int(255 * label), 12), 1)
 
     # show prediction
     cv2.imshow('prediction', image)
