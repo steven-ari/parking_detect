@@ -32,3 +32,20 @@ $ git@github.com:steven-ari/parking_detect.git
 5. run *preprocessing/image_generator.py*: this creates training images out of predefined patch locations. <br/>Notice the date_name variable  
 6. run *training/train_img_parking.py* to have a trained model  <br/>*training/eval_img_parking.py* for demo of prediction result
 
+### Model Architecture (Simplified)
+| Layer (type)    | Output Shape          | Param #   |
+|  :---:          |     :---:             |  :---:    |
+| BatchNorm       | (None, 200, 200, 3)   | 12        |
+| Conv2D          | (None, 200, 200, 16)  | 448       |
+| Conv2D          | (None, 100, 100, 32)  | 25120     |
+| BatchNorm       | (None, 100, 100, 32)  | 25120     |
+| Conv2D          | (None, 50, 50, 32)    | 9248      |
+| dense (Dense)   | (None, 200)           | 4000200   |
+| Dropout         | (None, 200)           | 0         |
+| dense (Dense)   | (None, 128)           | 25728     |
+| dense (Dense)   | (None, 1)             | 129       |
+
+Total params: 4,141,013 <br/>
+Trainable params: 4,100,943 <br/>
+Non-trainable params: 40,070
+
