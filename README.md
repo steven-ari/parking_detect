@@ -40,12 +40,13 @@ $ git@github.com:steven-ari/parking_detect.git
 | Conv2D, Relu    | (None, 100, 100, 32)  | 25120     |
 | BatchNorm       | (None, 100, 100, 32)  | 25120     |
 | Conv2D, Relu    | (None, 50, 50, 32)    | 9248      |
-| dense (Dense)   | (None, 200)           | 4000200   |
+| Conv2D, Relu    | (None, 25, 25, 32)    | 9248      |
+| dense (Dense)   | (None, 200)           | 461000    |
 | Dropout         | (None, 200)           | 0         |
 | dense (Dense)   | (None, 128)           | 25728     |
 | dense (Dense)   | (None, 1)             | 129       |
 
-Total params: 4,141,013 <br/>
-Trainable params: 4,100,943 <br/>
-Non-trainable params: 40,070
+Total params: 1,010,293 <br/>
+Trainable params: 1,001,007 <br/>
+Non-trainable params: 9,286
 
