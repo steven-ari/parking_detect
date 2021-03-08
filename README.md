@@ -57,13 +57,13 @@ Non-trainable params: 9,286
 
 ### Sources
 
-* [__Deep learning for decentralized parking lot occupancy detection__](http://cnrpark.it/)
+[__Deep learning for decentralized parking lot occupancy detection__](http://cnrpark.it/)
 <br>
 Giuseppe Amato, Fabio Carrara, Fabrizio Falchi, Claudio Gennaro Carlo Meghini and Claudio Vairo
 <br>
 ___Published on [Expert Systems with Applications 72, 327-334](https://www.sciencedirect.com/science/article/abs/pii/S095741741630598X)___
 
-* [__Car parking occupancy detection using smart camera networks and Deep Learning__](http://cnrpark.it/)
+[__Car parking occupancy detection using smart camera networks and Deep Learning__](http://cnrpark.it/)
 <br>
 Giuseppe Amato, Fabio Carrara, Fabrizio Falchi, Claudio Gennaro and Claudio Vairo
 <br>
