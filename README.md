@@ -36,10 +36,10 @@ $ git@github.com:steven-ari/parking_detect.git
 | Layer (type)    | Output Shape          | Param #   |
 |  :---:          |     :---:             |  :---:    |
 | BatchNorm       | (None, 200, 200, 3)   | 12        |
-| Conv2D          | (None, 200, 200, 16)  | 448       |
-| Conv2D          | (None, 100, 100, 32)  | 25120     |
+| Conv2D, Relu    | (None, 200, 200, 16)  | 448       |
+| Conv2D, Relu    | (None, 100, 100, 32)  | 25120     |
 | BatchNorm       | (None, 100, 100, 32)  | 25120     |
-| Conv2D          | (None, 50, 50, 32)    | 9248      |
+| Conv2D, Relu    | (None, 50, 50, 32)    | 9248      |
 | dense (Dense)   | (None, 200)           | 4000200   |
 | Dropout         | (None, 200)           | 0         |
 | dense (Dense)   | (None, 128)           | 25728     |
