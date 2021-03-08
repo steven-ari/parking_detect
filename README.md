@@ -1,6 +1,5 @@
 # parking_detect
 
-<<<<<<< HEAD
 ### Example
 ![](parking_dataset/parking.gif)
 
@@ -64,8 +63,6 @@ Non-trainable params: 9,286
 Giuseppe Amato, Fabio Carrara, Fabrizio Falchi, Claudio Gennaro Carlo Meghini and Claudio Vairo
 <br>
 ___Published on [Expert Systems with Applications 72, 327-334](https://www.sciencedirect.com/science/article/abs/pii/S095741741630598X)___
-
->>>>>>> 78eaa4d62bdf7f95618507210f6f7b3fc511604d
 
 [__Car parking occupancy detection using smart camera networks and Deep Learning__](http://cnrpark.it/)
 <br>
