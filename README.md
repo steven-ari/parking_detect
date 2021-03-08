@@ -18,10 +18,8 @@ ___Accepted at [2016 IEEE Symposium on Computers and Communication (ISCC)](https
 ```console
 $ git@github.com:steven-ari/parking_detect.git
 ```
-* Download the dataset from [here](http://cnrpark.it/), download all four items listed under __"Dataset Download"
-
-
-
+* Download the dataset from [here](http://cnrpark.it/), download all four items listed under **"Dataset Download"**
 * Install requirements in requirements.txt
+* run *preprocessing/image_generator.py*: this creates training images out of predefined patch locations. Notice the date_name variable  
+* run *training/train_img_parking.py* to have a trained model and *training/eval_img_parking.py* for demo of result
 
-##
