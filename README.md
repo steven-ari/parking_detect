@@ -3,7 +3,7 @@
 Image classification task for parking spot monitoring using CCTV on *Tensorflow.*
 
 ### Example
-![](parking_dataset/parking.gif)
+![](parking_dataset_plain/parking.gif)
 
 ### Dataset of Choice
 
