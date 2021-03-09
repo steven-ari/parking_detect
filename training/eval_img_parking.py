@@ -15,6 +15,7 @@ from tensorflow.keras.models import Sequential
 batch_size = 32
 AUTOTUNE = tf.data.AUTOTUNE
 
+
 def prepare(img):
     # img = tf.image.per_image_standardization(img)  # mean=0; var=1
     rescale = layers.experimental.preprocessing.Rescaling(scale=1./255, input_shape=(img_size[0], img_size[1], 3))
@@ -31,11 +32,9 @@ model = Sequential([
     layers.BatchNormalization(),
     layers.Conv2D(16, 3, padding='same', activation='relu'),
     layers.MaxPooling2D(),
-    layers.Conv2D(32, 7, padding='same'),
+    layers.Conv2D(64, 7, padding='same'),
     layers.BatchNormalization(),
     layers.LeakyReLU(),
-    layers.MaxPooling2D(),
-    layers.Conv2D(32, 3, padding='same', activation='relu'),
     layers.MaxPooling2D(),
     layers.Conv2D(32, 3, padding='same', activation='relu'),
     layers.MaxPooling2D(),
@@ -52,16 +51,13 @@ model.load_weights('my_checkpoint')
 # OVERCAST '2015-11-16', camera8;'2015-11-20', camera2;'2015-11-20', 'camera3';'2015-11-20', 'camera5';'2015-11-20', 'camera6'
 # SUNNY'2015-12-17''camera9' '2016-01-18' 'camera7'
 plain_name = ['parking_dataset_plain', 'CNR-EXT-Patches-150x150', 'PATCHES']
-date_name = '2015-11-16'
-camera_name = 'camera8'
+date_name = '2015-12-17'
+weather = 'SUNNY'
+camera_name = 'camera9'
 img_path_search = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), plain_name[0],
-                               'CNR-EXT_FULL_IMAGE_1000x750', 'FULL_IMAGE_1000x750', 'OVERCAST', date_name,
+                               'CNR-EXT_FULL_IMAGE_1000x750', 'FULL_IMAGE_1000x750', weather, date_name,
                                camera_name, '20*.jpg')
-"""date_name = '2015-11-27'
-camera_name = 'camera4'
-img_path_search = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), plain_name[0],
-                               'CNR-EXT_FULL_IMAGE_1000x750', 'FULL_IMAGE_1000x750', 'SUNNY', date_name,
-                               camera_name, '20*.jpg')"""
+
 img_path_list = glob.glob(img_path_search)
 for img_path in img_path_list:
 

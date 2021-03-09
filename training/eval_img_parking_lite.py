@@ -46,10 +46,12 @@ interpreter.invoke()
 # SUNNY'2015-12-17''camera9' '2016-01-18' 'camera7'
 plain_name = ['parking_dataset_plain', 'CNR-EXT-Patches-150x150', 'PATCHES']
 date_name = '2015-11-16'
+weather = 'OVERCAST'
 camera_name = 'camera8'
 img_path_search = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), plain_name[0],
-                               'CNR-EXT_FULL_IMAGE_1000x750', 'FULL_IMAGE_1000x750', 'OVERCAST', date_name,
+                               'CNR-EXT_FULL_IMAGE_1000x750', 'FULL_IMAGE_1000x750', weather, date_name,
                                camera_name, '20*.jpg')
+
 """date_name = '2015-11-27'
 camera_name = 'camera4'
 img_path_search = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), plain_name[0],

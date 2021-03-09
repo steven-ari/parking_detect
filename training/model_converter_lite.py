@@ -1,21 +1,19 @@
-
+import numpy as np
 import tensorflow as tf
 
 from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.models import Sequential
 
-'''img_size = (200, 200)
+img_size = (200, 200)
 model = Sequential([
     keras.Input(shape=(img_size[0], img_size[1], 3)),
     layers.BatchNormalization(),
     layers.Conv2D(16, 3, padding='same', activation='relu'),
     layers.MaxPooling2D(),
-    layers.Conv2D(32, 7, padding='same'),
+    layers.Conv2D(64, 7, padding='same'),
     layers.BatchNormalization(),
     layers.LeakyReLU(),
-    layers.MaxPooling2D(),
-    layers.Conv2D(32, 3, padding='same', activation='relu'),
     layers.MaxPooling2D(),
     layers.Conv2D(32, 3, padding='same', activation='relu'),
     layers.MaxPooling2D(),
@@ -26,20 +24,13 @@ model = Sequential([
     layers.Dense(128, activation='relu'),
     layers.Dense(1, activation='sigmoid'),
 ])
-
 model.load_weights('my_checkpoint')
-
 # Convert the model.
 converter = tf.lite.TFLiteConverter.from_keras_model(model)
 tflite_model = converter.convert()
-
 # Save the model.
 with open('model.tflite', 'wb') as f:
-  f.write(tflite_model)'''
-
-
-import numpy as np
-import tensorflow as tf
+    f.write(tflite_model)
 
 # Load the TFLite model and allocate tensors.
 interpreter = tf.lite.Interpreter(model_path="converted_model.tflite")

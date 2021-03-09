@@ -38,7 +38,7 @@ train_ds = tf.keras.preprocessing.image_dataset_from_directory(
         dataset_dir,
         validation_split=0.3,
         subset="training",
-        seed=12,
+        seed=123,
         image_size=img_size,
         batch_size=batch_size_train)
 
@@ -54,7 +54,7 @@ val_ds = tf.keras.preprocessing.image_dataset_from_directory(
           dataset_dir,
           validation_split=0.3,
           subset="validation",
-          seed=12,
+          seed=123,
           image_size=img_size,
           batch_size=batch_size_train)
 
@@ -76,11 +76,9 @@ model = Sequential([
     layers.BatchNormalization(),
     layers.Conv2D(16, 3, padding='same', activation='relu'),
     layers.MaxPooling2D(),
-    layers.Conv2D(32, 7, padding='same'),
+    layers.Conv2D(64, 7, padding='same'),
     layers.BatchNormalization(),
     layers.LeakyReLU(),
-    layers.MaxPooling2D(),
-    layers.Conv2D(32, 3, padding='same', activation='relu'),
     layers.MaxPooling2D(),
     layers.Conv2D(32, 3, padding='same', activation='relu'),
     layers.MaxPooling2D(),
@@ -105,7 +103,6 @@ metrics = [
 ]
 model.compile(optimizer='adam',
               loss=keras.losses.BinaryCrossentropy(),
-              # metrics=['accuracy'])
               metrics=metrics)
 model.summary()
 weight_for_0 = (1 / 14000) * 37000 / 2.0
@@ -116,36 +113,12 @@ class_weight = {0: weight_for_0, 1: weight_for_1}
 history_plot = model.fit(train_ds,
                          validation_data=val_ds,
                          epochs=epochs,
-                         class_weight=class_weight,)
-
-"""# visualize training result
-acc = history.history['sparse_categorical_accuracy']
-val_acc = history.history['val_sparse_categorical_accuracy']
-loss = history.history['loss']
-val_loss = history.history['val_loss']
-epochs_range = range(epochs)
-
-lower_acc, upper_acc = 0.95, 1.00
-plt.figure(figsize=(8, 8))
-ax_acc = plt.subplot(1, 2, 1)
-ax_acc.plot(epochs_range, acc, label='Training Accuracy')
-ax_acc.plot(epochs_range, val_acc, label='Validation Accuracy')
-# ax_acc.set_ylim(lower_acc, upper_acc)
-ax_acc.grid(which='both', axis='y')
-ax_acc.legend(loc='lower right')
-ax_acc.set_title('Training and Validation Accuracy')
-
-lower_loss, upper_loss = 0.00, 0.13
-ax_loss = plt.subplot(1, 2, 2)
-ax_loss.plot(epochs_range, loss, label='Training Loss');
-ax_loss.plot(epochs_range, val_loss, label='Validation Loss')
-# ax_loss.set_ylim(lower_loss, upper_loss)
-ax_loss.grid(which='both', axis='y')
-ax_loss.legend(loc='upper right')
-ax_loss.set_title('Training and Validation Loss')
-plt.show()"""
+                         # class_weight=class_weight,
+                         )
 
 colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
+
+
 def plot_metrics(history):
     metrics = ['loss', 'auc', 'precision', 'recall']
     for n, metric in enumerate(metrics):
