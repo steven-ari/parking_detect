@@ -1,7 +1,5 @@
 # parking_detect
 
-
-### Dataset Creation
 Image classification task for parking spot monitoring using CCTV on *Tensorflow.*
 
 ### Example
