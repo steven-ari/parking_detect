@@ -1,5 +1,7 @@
 **/*.jpg
 **/*.png
+**/*.csv
 **/*checkpoint*
 .idea/*
 **/*.tflite
+venv*
